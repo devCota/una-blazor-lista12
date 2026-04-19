@@ -1,0 +1,42 @@
+@using Microsoft.AspNetCore.Components
+
+<div class="eco-card @(MetaAtingida ? "meta" : string.Empty)">
+    <h3 class="eco-card-title">@TituloAcao</h3>
+
+    <p class="eco-line">
+        Pontos por acao: <strong>@PesoAcao</strong>
+    </p>
+
+    <p class="eco-line total-label">Total acumulado:</p>
+    <span class="eco-total-badge @(MetaAtingida ? "meta" : string.Empty)">@_total</span>
+
+    <button class="eco-action-button" @onclick="RegistrarAcao">Registrar<br />Atividade</button>
+
+    @if (MetaAtingida)
+    {
+        <p class="eco-meta-message">
+            🌱 Meta batida!<br />
+            Voce e um Heroi do Planeta!
+        </p>
+    }
+</div>
+
+@code {
+    private int _total;
+
+    [Parameter]
+    public string TituloAcao { get; set; } = string.Empty;
+
+    [Parameter]
+    public int PesoAcao { get; set; } = 1;
+
+    [Parameter]
+    public int MetaAtingidaEm { get; set; } = 100;
+
+    private bool MetaAtingida => _total >= MetaAtingidaEm;
+
+    private void RegistrarAcao()
+    {
+        _total += PesoAcao;
+    }
+}
